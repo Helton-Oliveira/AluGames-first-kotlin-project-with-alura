@@ -2,6 +2,7 @@ package br.com.alura.alugames.principal
 
 import br.com.alura.alugames.model.Gamer
 import br.com.alura.alugames.service.ConsumeApi
+import br.com.alura.alugames.util.transformInAge
 import org.example.br.com.alura.alugames.model.Game
 import java.util.*
 
@@ -10,6 +11,7 @@ fun main() {
     val gamer = Gamer.createGamer(reader)
     println("Cadastro concluído com sucesso! Dados do gamer:")
     println(gamer)
+    println("Idade do gamer: ${gamer.birthday?.transformInAge()}")
 
     do {
         println("Digite um código de jogo para buascar: ");
