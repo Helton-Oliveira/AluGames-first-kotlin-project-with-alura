@@ -7,7 +7,7 @@ import org.example.br.com.alura.alugames.model.Game
 import java.util.*
 
 fun main() {
-    val reader: Scanner = Scanner(System.`in`);
+   /* val reader: Scanner = Scanner(System.`in`);
     val gamer = Gamer.createGamer(reader)
     println("Cadastro concluído com sucesso! Dados do gamer:")
     println(gamer)
@@ -17,7 +17,7 @@ fun main() {
         println("Digite um código de jogo para buascar: ");
         val message = reader.nextLine();
 
-        val myInfoGame = ConsumeApi().searchGame(message)
+        val myInfoGame = ConsumeApi().searchGame()
         var myGame: Game? = null;
 
         // runCatching meothod
@@ -76,5 +76,5 @@ fun main() {
     println("\n Lista atualizada: ")
     println(gamer.gameList)
 
-    println("Busca finalizada com sucesso...");
+    println("Busca finalizada com sucesso...");*/
 }

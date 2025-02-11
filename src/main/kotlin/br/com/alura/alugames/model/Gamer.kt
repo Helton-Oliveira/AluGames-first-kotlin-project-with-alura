@@ -1,10 +1,10 @@
 package br.com.alura.alugames.model
 
 import org.example.br.com.alura.alugames.model.Game
-import java.util.Scanner
+import java.util.*
 import kotlin.random.Random
 
-data class Gamer(val name:String, var email:String) {
+data class Gamer(val name:String, var email:String) : Recommended {
     var birthday:String? = null
 
     var user:String? = null
@@ -20,6 +20,10 @@ data class Gamer(val name:String, var email:String) {
         private set
 
     val gameList = mutableListOf<Game?>()
+    val rentedGames = mutableListOf<Rent>()
+    var plane: Plane = SinglePlane("BRONZE")
+    val notes = mutableListOf<Int>()
+    val recommendedGames = mutableListOf<Game>()
 
     constructor(name:String, email:String, birthday:String, user:String) :
             this(name, email) {
@@ -27,6 +31,21 @@ data class Gamer(val name:String, var email:String) {
                 this.user = user
                 generateIternalId()
             }
+    override val media: Double
+        get() = notes.average()
+
+    override fun recommend(note: Int) {
+        if(note < 1 || note > 10) {
+            println("Nota inválida, insira uma nota entre 0 e 10.")
+        } else {
+            notes.add(note)
+        }
+    }
+
+    fun recommendGame(game: Game, note: Int) {
+        game.recommend(note)
+        recommendedGames.add(game)
+    }
 
     // funcao (init) executa uma sequencia de algoritmos antes de construir o objeto
     init {
@@ -54,6 +73,17 @@ data class Gamer(val name:String, var email:String) {
         } else {
             throw IllegalArgumentException("Email inválido.")
         }
+    }
+
+    fun rentGame(game: Game, period: Period): Rent {
+        val rentedGame = Rent(this, game, period)
+        rentedGames.add(rentedGame)
+        return rentedGame
+    }
+
+    fun getRentedGamesPerMonth(month:Int): List<Game> {
+        val rentedGamesPerMonth = rentedGames.filter { rent -> rent.period.initialDate.monthValue == month }
+        return rentedGamesPerMonth.map { rentedGame -> rentedGame.game }
     }
 
     companion object {
